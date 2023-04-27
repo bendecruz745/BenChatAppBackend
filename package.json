@@ -19,7 +19,8 @@
     "mercedlogger": "^1.0.1",
     "mongodb": "4.1",
     "mongoose": "^7.0.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
