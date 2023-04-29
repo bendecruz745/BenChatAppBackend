@@ -3,6 +3,7 @@ const { Router } = require("express"); // import router from express
 const UserDetail = require("../models/UserDetail"); // import user model
 const bcrypt = require("bcryptjs"); // import bcrypt to hash passwords
 const jwt = require("jsonwebtoken"); // import jwt to sign tokens
+const { isLoggedIn } = require("./middleware"); // import isLoggedIn custom middleware
 
 const router = Router(); // create router to create route bundle
 
@@ -45,7 +46,8 @@ router.post("/login", async (req, res) => {
         const token = await jwt.sign({ username: user.username }, SECRET, {
           expiresIn: "1h",
         });
-        res.json({ token });
+        const username = user.username;
+        res.json({ token, username });
       } else {
         res.status(400).json({ error: "Incorrect password" });
       }
@@ -55,6 +57,16 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error });
   }
+});
+
+router.post("/isLoggedIn", isLoggedIn, async (req, res) => {
+  console.log("isLoggedIn hit and verified");
+  // console.log(`middleware payload is ${JSON.stringify(req.user)}`);
+  res.json({
+    LoginCheck: "Successful",
+    username: req.user.username,
+    newToken: req.newToken,
+  });
 });
 
 module.exports = router;

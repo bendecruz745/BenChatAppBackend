@@ -8,13 +8,12 @@ const { MONGO_PASSWORD } = process.env;
 const { MONGO_URI } = process.env;
 
 const DATABASE_URL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_URI}`;
-// { DATABASE_URL } = process.env;
-console.log(
-  `AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA Database URL is ${DATABASE_URL}`
-);
+// console.log(
+//   `AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA Database URL is ${DATABASE_URL}`
+// );
 
 // CONNECT TO MONGO
-console.log(DATABASE_URL);
+// console.log(DATABASE_URL); //double checking database ur;
 mongoose.connect = mongoose.connect(DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

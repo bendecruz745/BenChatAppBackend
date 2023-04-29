@@ -1,5 +1,6 @@
 require("dotenv").config(); // loading env variables
 const jwt = require("jsonwebtoken");
+const { SECRET = "secret" } = process.env;
 
 // MIDDLEWARE FOR AUTHORIZATION (MAKING SURE THEY ARE LOGGED IN)
 const isLoggedIn = async (req, res, next) => {
@@ -9,10 +10,18 @@ const isLoggedIn = async (req, res, next) => {
       // parse token from header
       const token = req.headers.authorization.split(" ")[1]; //split the header and get the token
       if (token) {
-        const payload = await jwt.verify(token, process.env.SECRET);
+        const payload = jwt.verify(token, process.env.SECRET);
         if (payload) {
+          const newToken = await jwt.sign(
+            { username: payload.username },
+            SECRET,
+            {
+              expiresIn: "1h",
+            }
+          );
           // store user data in request object
           req.user = payload;
+          req.newToken = newToken;
           next();
         } else {
           res.status(400).json({ error: "token verification failed" });
@@ -24,6 +33,7 @@ const isLoggedIn = async (req, res, next) => {
       res.status(400).json({ error: "No authorization header" });
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error });
   }
 };
