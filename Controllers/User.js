@@ -10,6 +10,10 @@ const router = Router(); // create router to create route bundle
 //DESTRUCTURE ENV VARIABLES WITH DEFAULTS
 const { SECRET = "secret" } = process.env;
 
+router.post("/test", async (req, res) => {
+  res.json("test user response");
+});
+
 // Signup route to create a new user
 router.post("/signup", async (req, res) => {
   try {
@@ -53,6 +57,9 @@ router.post("/login", async (req, res) => {
       }
     } else {
       res.status(400).json({ error: "User doesn't exist" });
+      console.log(
+        `user doesn't exist hit, data as follows ${JSON.stringify(req.body)}`
+      );
     }
   } catch (error) {
     res.status(400).json({ error });
