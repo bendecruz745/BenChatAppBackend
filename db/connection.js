@@ -3,7 +3,7 @@ const mongoose = require("mongoose"); //import fresh mongoose object
 const { log } = require("mercedlogger"); // import merced logger
 
 //DESTRUCTURE ENV VARIABLES
-const MONGO_USERNAME = process.env.MONGO_USERNAME;
+const { MONGO_USERNAME } = process.env;
 const { MONGO_PASSWORD } = process.env;
 const { MONGO_URI } = process.env;
 
