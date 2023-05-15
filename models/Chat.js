@@ -34,18 +34,7 @@ const ChatSchema = new Schema({
   // },
   // },
 
-  // chatMembers: {
-  // Member1: {
-  //   userName: { type: String, unique: true, required: true },
-  //   displayName: { type: String, unique: true, required: true },
-  //   roles: [{ type: String }],
-  // },
-  // Member2: {
-  //   userName: { type: String, unique: true, required: true },
-  //   displayName: { type: String, unique: true, required: true },
-  //   roles: [{ type: String }],
-  // }
-  // },
+  chatMembers: [],
 
   chatMessages: [
     // Message000001: {

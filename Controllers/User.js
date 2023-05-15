@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
       if (result) {
         // sign token and send it in response
         const token = await jwt.sign({ username: user.username }, SECRET, {
-          expiresIn: "1h",
+          expiresIn: "300s",
         });
         const username = user.username;
         res.json({ token, username });
