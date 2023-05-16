@@ -2,7 +2,7 @@ const Chat = require("../models/Chat"); // import Todo model
 const { isLoggedIn } = require("./middleware"); // import isLoggedIn custom middleware
 require("dotenv").config(); // loading env variables
 const jwt = require("jsonwebtoken");
-const { SECRET = "secret" } = process.env;
+const filter = require("profanity-filter");
 
 module.exports = (app) => {
   app.on("connection", async function (socket) {
@@ -87,6 +87,7 @@ module.exports = (app) => {
             "Login verification failed in NEW_CHAT_MESSAGE_EVENT"
           );
         }
+
         io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, {
           ...data,
           senderUsername: username,

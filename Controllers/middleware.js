@@ -13,7 +13,7 @@ const isLoggedIn = async (req, res, next) => {
         const payload = jwt.verify(token, process.env.SECRET);
         if (payload) {
           const newToken = jwt.sign({ username: payload.username }, SECRET, {
-            expiresIn: "300s",
+            expiresIn: "1hr",
           });
           // store user data in request object
           req.user = payload;

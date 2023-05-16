@@ -752,6 +752,11 @@
   "resolved" "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz"
   "version" "2.3.1"
 
+"profanity-filter@^0.2.1":
+  "integrity" "sha512-h+ShFnIFPvzvySGZR7O/+6wj29eJjzBLSQSo19sZ5ijhaeyTa6815f/SQyLTyrAv8NCbhxpufn/ylNh9J9fr1g=="
+  "resolved" "https://registry.npmjs.org/profanity-filter/-/profanity-filter-0.2.1.tgz"
+  "version" "0.2.1"
+
 "proxy-addr@~2.0.7":
   "integrity" "sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg=="
   "resolved" "https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.7.tgz"
