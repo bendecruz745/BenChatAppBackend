@@ -5,7 +5,7 @@ const { log } = require("mercedlogger"); // import mercedlogger's log function
 const cors = require("cors"); // import cors
 const UserRouter = require("./Controllers/User");
 const NotesRouter = require("./Controllers/Notes");
-const TestChat = require("./Controllers/TestChat");
+const Chat = require("./Controllers/Chat");
 
 //DESTRUCTURE ENV VARIABLES WITH DEFAULT VALUES
 const { PORT = 4000 } = process.env;
@@ -19,7 +19,7 @@ const io = require("socket.io")(httpServer, {
   },
 });
 global.io = io;
-TestChat(io);
+Chat(io);
 
 // GLOBAL MIDDLEWARE
 app.use(cors()); // add cors headers
