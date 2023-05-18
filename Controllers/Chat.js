@@ -60,6 +60,7 @@ module.exports = (app) => {
         ],
       });
       await doc.save();
+      io.in(roomId).emit(MEMBERS_UPDATE, doc.chatMembers);
     } else {
       const userPosition = doc.chatMembers.findIndex(
         (user) => user.username === username
