@@ -98,7 +98,7 @@ module.exports = (app) => {
         doc.markModified("chatMembers");
         await doc.save();
       }
-      io.in(socket.id).emit(RETRIEVE_DATA, doc, roomHistoryDoc);
+      io.in(roomId).emit(RETRIEVE_DATA, doc, roomHistoryDoc);
     }
 
     socket["username"] = username;
