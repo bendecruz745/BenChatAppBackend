@@ -44,7 +44,6 @@ module.exports = (app) => {
       username: username,
     }).select("roomHistory");
     if (roomHistoryDoc.roomHistory.includes(roomId)) {
-      console.log("room in history, shifting to front");
       roomHistoryDoc.roomHistory.push(
         roomHistoryDoc.roomHistory.splice(
           roomHistoryDoc.roomHistory.indexOf(roomId),
@@ -52,12 +51,10 @@ module.exports = (app) => {
         )[0]
       );
     } else {
-      console.log("room not in history, adding");
       roomHistoryDoc.roomHistory.push(roomId);
     }
     roomHistoryDoc.markModified("roomHistory");
     roomHistoryDoc.save();
-    console.log(roomHistoryDoc.roomHistory);
     const autoAuthInterval = setInterval(verifyLogin, 60000);
 
     let doc = await Chat.findOne({ roomId });
