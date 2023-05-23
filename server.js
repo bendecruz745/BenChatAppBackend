@@ -4,7 +4,6 @@ const morgan = require("morgan"); //import morgan
 const { log } = require("mercedlogger"); // import mercedlogger's log function
 const cors = require("cors"); // import cors
 const UserRouter = require("./Controllers/User");
-const NotesRouter = require("./Controllers/Notes");
 const Chat = require("./Controllers/Chat");
 
 //DESTRUCTURE ENV VARIABLES WITH DEFAULT VALUES
