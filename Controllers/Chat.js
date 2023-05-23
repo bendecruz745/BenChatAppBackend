@@ -1,4 +1,5 @@
 const Chat = require("../models/Chat"); // import Todo model
+const UserDetail = require("../models/UserDetail");
 const { countDocuments } = require("../models/UserDetail");
 const { isLoggedIn } = require("./middleware"); // import isLoggedIn custom middleware
 require("dotenv").config(); // loading env variables
@@ -16,10 +17,6 @@ module.exports = (app) => {
     const RETRIEVE_DATA = "retrieveData";
 
     const { roomId, Authorization } = socket.handshake.query;
-
-    // const updateChatMembers = () => {
-    //   chatMembers =
-    // }
 
     const verifyLogin = () => {
       try {
@@ -43,6 +40,24 @@ module.exports = (app) => {
     };
 
     let username = verifyLogin();
+    let roomHistoryDoc = await UserDetail.findOne({
+      username: username,
+    }).select("roomHistory");
+    if (roomHistoryDoc.roomHistory.includes(roomId)) {
+      console.log("room in history, shifting to front");
+      roomHistoryDoc.roomHistory.push(
+        roomHistoryDoc.roomHistory.splice(
+          roomHistoryDoc.roomHistory.indexOf(roomId),
+          1
+        )[0]
+      );
+    } else {
+      console.log("room not in history, adding");
+      roomHistoryDoc.roomHistory.push(roomId);
+    }
+    roomHistoryDoc.markModified("roomHistory");
+    roomHistoryDoc.save();
+    console.log(roomHistoryDoc.roomHistory);
     const autoAuthInterval = setInterval(verifyLogin, 60000);
 
     let doc = await Chat.findOne({ roomId });
@@ -60,7 +75,7 @@ module.exports = (app) => {
         ],
       });
       await doc.save();
-      io.in(roomId).emit(MEMBERS_UPDATE, doc.chatMembers);
+      io.in(roomId).emit(RETRIEVE_DATA, doc, roomHistoryDoc);
     } else {
       const userPosition = doc.chatMembers.findIndex(
         (user) => user.username === username
@@ -86,7 +101,7 @@ module.exports = (app) => {
         doc.markModified("chatMembers");
         await doc.save();
       }
-      io.in(roomId).emit(RETRIEVE_DATA, doc);
+      io.in(socket.id).emit(RETRIEVE_DATA, doc, roomHistoryDoc);
     }
 
     socket["username"] = username;
